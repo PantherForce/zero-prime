@@ -1,0 +1,43 @@
+import React from "react";
+
+const BuyButton = () => {
+  const handlePayment = () => {
+    const options = {
+      key: "YOUR_TEST_KEY_ID", // Replace with your Razorpay Test Key ID
+      amount: 100 * 100, // Amount in paise (100 INR)
+      currency: "INR",
+      name: "Zero Prime Subscription",
+      description: "Buy the ultimate nothingness!",
+      image: "/logo.png", // Optional: Your logo
+      handler: function (response: any) {
+        alert(
+          `Payment successful! Payment ID: ${response.razorpay_payment_id}`
+        );
+      },
+      prefill: {
+        name: "Test User",
+        email: "test@example.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#c85d00", // Match your design
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  };
+
+  return (
+    <div className="mt-40">
+      <button
+        onClick={handlePayment}
+        className="px-8 py-2 font-bold rounded-full bg-primaryColor text-yellow-50"
+      >
+        Buy Now
+      </button>
+    </div>
+  );
+};
+
+export default BuyButton;
