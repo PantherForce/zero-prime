@@ -13,6 +13,7 @@ import { FaNetworkWired } from "react-icons/fa";
 import { LuAward } from "react-icons/lu";
 import { RiCodeSSlashFill } from "react-icons/ri";
 import CtaButton from "./CtaButton";
+import { Link } from "react-router-dom";
 
 const benefitsList = [
   {
@@ -102,7 +103,9 @@ const Features = () => {
             </motion.div>
           ))}
         </div>
-        <CtaButton name="Join Now" />
+        <Link to="/login" >
+          <CtaButton name="Join Now" />
+        </Link>
       </motion.div>
     </section>
   );

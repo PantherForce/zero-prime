@@ -6,6 +6,7 @@ import { RiCodeSSlashFill } from "react-icons/ri";
 import { FaUserGroup } from "react-icons/fa6";
 import { IoShareSocialOutline } from "react-icons/io5";
 import CtaButton from "./CtaButton";
+import { Link } from "react-router-dom";
 
 const goalsLists = [
   {
@@ -70,8 +71,9 @@ const Goals = () => {
             </motion.div>
           ))}
         </div>
-
-        <CtaButton name="Join Our Community" />
+        <Link to="/https://www.reddit.com/r/Zeroprime/">
+          <CtaButton name="Join Our Community" />
+        </Link>
       </div>
     </motion.section>
   );

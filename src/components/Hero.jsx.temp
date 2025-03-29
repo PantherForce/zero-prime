@@ -5,6 +5,7 @@ import { fadeInUp } from "../animations/varients.js";
 import MedalImage from "../assets/images/medal.png";
 // import graph from "../assets/images/graph.svg";
 import AnimatedSVG from "./AnimatedSVG.jsx";
+import { Link } from "react-router-dom";
 
 // Array of icon data
 const iconsData = [
@@ -121,18 +122,20 @@ const Hero = () => {
             </motion.p>
 
             {/* Sign Up Button Animation */}
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: "#c85d00",
-                transition: { type: "spring", stiffness: 300 },
-              }}
-              whileTap={{ scale: 0.95 }}
-              {...fadeInUp}
-              className="px-8 py-[10px] font-Urbanist text-base font-bold sm:text-lg  bg-primaryColor text-yellow-50 sm:font-medium"
-            >
-              Sign Up Now
-            </motion.button>
+            <Link to="/login">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "#c85d00",
+                  transition: { type: "spring", stiffness: 300 },
+                }}
+                whileTap={{ scale: 0.95 }}
+                {...fadeInUp}
+                className="px-8 py-[10px] font-Urbanist text-base font-bold sm:text-lg  bg-primaryColor text-yellow-50 sm:font-medium"
+              >
+                Sign Up Now
+              </motion.button>
+            </Link>
           </div>
           {/* graph  */}
 
