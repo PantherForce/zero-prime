@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import { UserProvider } from "./context/UserContext";
 
 // lenis for smooth scrolling
 import "lenis/dist/lenis.css";
@@ -12,10 +13,10 @@ const lenis = new Lenis({
   autoRaf: true,
 });
 // Listen for the scroll event and log the event data
-lenis.on("scroll", () => {});
+lenis.on("scroll", () => { });
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <UserProvider>
     <App />
-  </StrictMode>
+  </UserProvider>,
 );

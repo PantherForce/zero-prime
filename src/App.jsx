@@ -19,6 +19,8 @@ import GoogleLogin from "./components/GoogleLogin";
 import Leaderboard from "./components/Leaderboard";
 import Timeline from "./components/Timeline";
 import UserFlow from "./components/UserFlow";
+import PrivacyPolicy from "./components/Privacy";
+import Terms from "./components/Terms";
 
 function App() {
   const router = createBrowserRouter(
@@ -30,6 +32,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/login" element={<GoogleLogin />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
       </Route>
     )
   );
