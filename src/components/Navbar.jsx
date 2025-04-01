@@ -109,9 +109,9 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 left-0 z-50 bg-gray-800 shadow-lg w-80 md:hidden"
+              className="fixed top-0 left-0 z-50  bg-gray-800 shadow-lg w-full md:hidden"
             >
-              <div className="flex flex-col h-full px-6 py-16 pt-20">
+              <div className="flex flex-col h-screen px-6 py-16 pt-20">
                 {/* Navigation Links */}
                 <ul className="flex flex-col items-start gap-3">
                   {navLinks.map((link, index) => (
