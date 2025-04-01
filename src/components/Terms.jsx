@@ -2,7 +2,7 @@ import React from "react";
 
 const Terms = () => {
     return (
-        <div className="max-w-3xl mt-20 mx-auto p-6 text-gray-800">
+        <div className="max-w-3xl mt-20 mx-auto p-6 text-white">
             <h1 className="text-3xl font-bold mb-4">Terms of Service</h1>
             <p className="mb-4">Effective Date: [Insert Date]</p>
             <h2 className="text-xl font-semibold mt-6">1. Acceptance of Terms</h2>
