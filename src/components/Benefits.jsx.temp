@@ -3,12 +3,14 @@ import { MdOutlineChevronRight } from "react-icons/md";
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom"; // For navigation
+import { useUserContext } from "../context/UserContext"; // Import the UserContext
+
 Modal.setAppElement('#root');
 
 const pricingData = [
   {
     id: 1,
-    title: "🥉 Basic Nothing",
+    title: "Basic Nothing",
     price: "$5/month",
     description: [
       "No perks.",
@@ -20,7 +22,7 @@ const pricingData = [
   },
   {
     id: 3,
-    title: "🥇 Ultimate Nothing",
+    title: "Ultimate Nothing",
     price: "$100/month",
     description: [
       "The highest level of nothingness.",
@@ -32,7 +34,7 @@ const pricingData = [
   },
   {
     id: 2,
-    title: "🥈 Premium Nothing",
+    title: "Premium Nothing",
     price: "$20/month",
     description: [
       "Get absolutely nothing—but at a higher cost.",
@@ -45,12 +47,12 @@ const pricingData = [
 ];
 
 const Pricing = () => {
+  const { user, updateUser } = useUserContext(); // Get user from context
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [earnings, setEarnings] = useState("");
   const [subscriptions, setSubscriptions] = useState("");
   const [response, setResponse] = useState("");
   const [finalMessage, setFinalMessage] = useState("");
-  const [selectedTier, setSelectedTier] = useState(null);
   const navigate = useNavigate();
 
   const openModal = () => setIsModalOpen(true);
@@ -103,8 +105,12 @@ const Pricing = () => {
       const response = await fetch("http://127.0.0.1:5000/get_user_info?token=" + localStorage.getItem("idToken"));
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("userEmail", data.email);
-        localStorage.setItem("userId", data.user_id);
+        updateUser({
+          email: data.email,
+          userId: data.user_id,
+          loggedIn: true,
+          subscribedPlanId: user.subscribedPlanId,
+        });
         return { email: data.email, userId: data.user_id };
       } else {
         throw new Error("Failed to fetch user info");
@@ -136,9 +142,16 @@ const Pricing = () => {
       handler: async function (response) {
         const userInfo = await fetchUserInfo();
         if (userInfo) {
-          await storePayment(userInfo.email, response.razorpay_payment_id, tier.id); // Pass plan_id (tier.id) to the backend
+          // Store payment and pass the planId to the backend
+          const planId = tier.id;
+          await storePayment(userInfo.email, response.razorpay_payment_id, planId);
+
+          // Add the new plan to the user's subscriptions (do not overwrite)
+          updateUser({
+            ...user,
+            subscriptions: [...user.subscriptions, { plan_id: planId, payment_id: response.razorpay_payment_id, date: new Date().toISOString() }]
+          });
         }
-        alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
       },
       theme: {
         color: "#c85d00",
@@ -150,8 +163,15 @@ const Pricing = () => {
   };
 
 
+
+
   const storePayment = async (email, paymentId, planId) => {
     try {
+      // Check if the userId is available
+      if (!user.userId) {
+        throw new Error("User ID is missing");
+      }
+
       const response = await fetch("http://127.0.0.1:5000/store_payment", {
         method: "POST",
         headers: {
@@ -160,12 +180,17 @@ const Pricing = () => {
         body: JSON.stringify({
           email: email,
           razorpay_payment_id: paymentId,
-          plan_id: planId, // Send plan_id to the backend
+          plan_id: planId,
+          userId: user.userId, // Ensure that userId is included
         }),
       });
 
       if (response.ok) {
-        alert("Payment stored successfully!");
+        // After successful payment, update the user's subscribed plan
+        updateUser({
+          ...user,
+          subscribedPlanId: planId,  // Update the planId to trigger a re-render
+        });
       } else {
         throw new Error("Failed to store payment");
       }
@@ -176,8 +201,6 @@ const Pricing = () => {
   };
 
 
-  // Check if user is logged in
-  const isUserLoggedIn = !!localStorage.getItem("idToken");
 
   return (
     <section className="relative px-4 overflow-hidden md:px-10">
@@ -225,21 +248,35 @@ const Pricing = () => {
 
               <button
                 onClick={() => {
-                  if (isUserLoggedIn) {
-                    handlePayment(tier.id);
+                  const idToken = localStorage.getItem("idToken");
+                  if (idToken) {
+                    if (parseInt(user.subscribedPlanId) === tier.id) {
+                      // Prevent subscription if the user is already subscribed to this plan
+                      alert("You're already subscribed to this plan.");
+                    } else {
+                      handlePayment(tier.id); // Proceed with payment if the user is not already subscribed
+                    }
                   } else {
                     navigate("/login"); // Redirect to login page if not logged in
                   }
                 }}
-                className="px-8 py-2 mt-4 font-bold bg-primaryColor text-white"
+                className={`px-8 py-2 mt-4 font-bold text-white ${parseInt(user.subscribedPlanId) === tier.id ? 'bg-black cursor-not-allowed' : 'bg-primaryColor'}`}
+              // Disable the button if already subscribed
               >
-                {isUserLoggedIn ? "Subscribe Now" : "Login to Subscribe"}
+                {parseInt(user.subscribedPlanId) === tier.id
+                  ? "Subscribed" // Show "Subscribed" if the user has already subscribed to this tier
+                  : localStorage.getItem("idToken") // Check if user is logged in (idToken exists)
+                    ? "Subscribe Now" // Show "Subscribe Now" if the user is logged in
+                    : "Login to Subscribe"}
               </button>
+
             </motion.div>
           ))}
         </div>
+
       </motion.div>
 
+      {/* Modal for Tier Selection */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
@@ -294,14 +331,11 @@ const Pricing = () => {
           />
         </div>
 
-        <div className="text-center mt-6">
-          <p className="text-lg font-medium">{finalMessage || "Answer the questions to get your perfect tier!"}</p>
-        </div>
-
-        <div className="mt-4 text-center">
-          <button onClick={handleSubmit} className="px-6 py-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-full">
+        <div className="flex justify-between items-center mt-6">
+          <button onClick={handleSubmit} className="px-6 py-2 bg-primaryColor text-white rounded-full">
             Submit
           </button>
+          <p>{finalMessage}</p>
         </div>
       </Modal>
     </section>

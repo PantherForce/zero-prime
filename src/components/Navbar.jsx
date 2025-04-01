@@ -47,7 +47,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full py-5 mx-auto bg-white border-b">
+    <header className="fixed top-0 left-0 z-50 w-full py-5 mx-auto bg-black">
       <nav className="container flex items-center justify-between px-4 mx-auto md:px-10">
         {/* Logo */}
         <Link to="/">
@@ -55,7 +55,7 @@ const Navbar = () => {
             <div className="h-10 w-10 group bg-[#ff7700] rounded grid place-items-center text-white">
               <span className="text-[18px] font-bold font-Sync">ZP</span>
             </div>
-            <div className="flex flex-col items-start h-full text-black translate-y-1">
+            <div className="flex flex-col items-start h-full text-white translate-y-1">
               <p className="text-xl font-medium group-hover:opacity-90 font-Sync">
                 Zero Prime
               </p>
@@ -71,8 +71,8 @@ const Navbar = () => {
                 to={link.to}
                 className={({ isActive }) =>
                   isActive
-                    ? "px-2 py-1 rounded text-black"
-                    : "text-base hover:text-gray-200 transition duration-300 px-2 py-1 font-light text-black"
+                    ? "px-2 py-1 rounded text-white"
+                    : "text-base hover:text-gray-200 transition duration-300 px-2 py-1 font-light text-white"
                 }
               >
                 {link.label}

@@ -115,7 +115,7 @@ const Hero = () => {
             <motion.p
               {...fadeInUp}
               transition={{ ...fadeInUp.whileInView.transition, delay: 1.5 }}
-              className="flex items-center justify-center gap-2 my-3 mb-10 text-base text-black"
+              className="flex items-center justify-center gap-2 my-3 mb-10 text-base text-white"
             >
               <img className="h-5" src={MedalImage} alt="Golden Medal Icon" />
               Live on Product Hunt

@@ -47,7 +47,7 @@ const Timeline = () => {
                             }}
                         >
 
-                            <p className={`text-lg font-semibold text-black ml-6 text-center`}>
+                            <p className={`text-lg font-semibold text-white ml-6 text-center`}>
                                 {rule.text}
                             </p>
                         </motion.div>

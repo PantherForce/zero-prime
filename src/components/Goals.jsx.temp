@@ -71,9 +71,10 @@ const Goals = () => {
             </motion.div>
           ))}
         </div>
-        <Link to="/https://www.reddit.com/r/Zeroprime/">
+        <a href="https://www.reddit.com/r/Zeroprime/" target="_blank" rel="noopener noreferrer">
           <CtaButton name="Join Our Community" />
-        </Link>
+        </a>
+
       </div>
     </motion.section>
   );

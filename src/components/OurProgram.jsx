@@ -38,7 +38,7 @@ const OurProgram = () => {
   return (
     <section
       id="our-program "
-      className="px-4 py-20 m-0 md:px-10 bg-white"
+      className="px-4 py-20 m-0 md:px-10 bg-black"
     >
       <motion.div
         variants={SectionVariants}
@@ -51,16 +51,16 @@ const OurProgram = () => {
 
         {/* cta  */}
         <div className="w-full py-5  text-center">
-          <h2 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl text-black">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl text-white">
             Dare to Subscribe?
           </h2>
-          <p className="w-full text-sm sm:text-base sm:w-[80%] mx-auto text-gray-400">
+          <p className="w-full text-sm sm:text-base sm:w-[80%] mx-auto text-white">
             No perks. No benefits. Just the ultimate test of your spending power. Are you in?
           </p>
           <motion.button
             whileHover={{ scale: 1.05, backgroundColor: "#c85d00" }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-2 mt-6 text-base font-bold text-white  sm:px-8 bg-primaryColor"
+            className="px-6 py-2 mt-6 text-base font-medium text-white  sm:px-8 bg-primaryColor"
           >
             Subscribe to Nothing
           </motion.button>

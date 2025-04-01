@@ -19,7 +19,7 @@
 
 @layer base {
   body {
-    @apply bg-white font-Urbanist;
+    @apply bg-black font-Urbanist;
   }
   .nav-btn {
     @apply px-5 py-2 text-base font-semibold text-center transition duration-300 bg-gray-800 rounded-md shadow-lg text-white/70 ring-1 ring-gray-800 hover:ring-gray-700 font-Urbanist;

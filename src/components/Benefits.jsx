@@ -18,7 +18,7 @@ const pricingData = [
       "Just pure, unfiltered nothingness.",
     ],
     backgroundColor: "",
-    textColor: "text-gray-600",
+    textColor: "text-white",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const pricingData = [
       "No benefits, just pure gold-level nothing.",
     ],
     backgroundColor: "",
-    textColor: "text-gray-600",
+    textColor: "text-white",
   },
   {
     id: 2,
@@ -42,7 +42,7 @@ const pricingData = [
       "A higher cost for a higher nothingness.",
     ],
     backgroundColor: "",
-    textColor: "text-gray-600",
+    textColor: "text-white",
   },
 ];
 
@@ -231,10 +231,10 @@ const Pricing = () => {
               style={{ minHeight: "200px" }}
             >
               <div className="text-center">
-                <h3 className={`text-lg font-semibold sm:text-xl ${tier.textColor} font-Sync`}>
+                <h3 className={`text-lg font-semibold sm:text-xl text-white font-Sync`}>
                   {tier.title}
                 </h3>
-                <p className={`mt-2 text-2xl font-semibold ${tier.textColor}`}>{tier.price}</p>
+                <p className={`mt-2 text-2xl font-medium ${tier.textColor}`}>{tier.price}</p>
               </div>
               <div className="mt-4">
                 <ul className={`space-y-2 text-sm ${tier.textColor}`}>

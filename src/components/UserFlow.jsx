@@ -51,7 +51,7 @@ const stepAnimation = {
 
 const UserFlow = () => {
     return (
-        <section id="flow" className="relative z-10 py-20 bg-gray-50">
+        <section id="flow" className="relative z-10 py-20 bg-black">
             <div className="container mx-auto px-6 text-center">
                 <motion.h2
                     {...fadeInUp}
@@ -75,13 +75,13 @@ const UserFlow = () => {
                             initial="hidden"
                             whileInView="visible"
                             transition={{ ...stepAnimation.visible.transition, delay: step.delay }}
-                            className="bg-white p-6 rounded-lg shadow-md"
+                            className="bg-black p-6 border-2 border-white rounded-lg shadow-md"
                         >
                             <div className="flex justify-center mb-4">
                                 {step.icon}
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-800">{step.title}</h3>
-                            <p className="text-gray-500 mt-2">{step.description}</p>
+                            <h3 className="text-xl font-medium text-white">{step.title}</h3>
+                            <p className="text-white mt-2">{step.description}</p>
                         </motion.div>
                     ))}
                 </div>
